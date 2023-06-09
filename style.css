@@ -1,50 +1,50 @@
 body {
-    font-family: "Raleway", sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(211, 210, 210);
-    max-width: 1400px;
-    margin: auto;
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(211, 210, 210);
+  max-width: 1400px;
+  margin: auto;
 }
-header{
+header {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('images/logoBg.png');
+  background-image: url("images/logoBg.png");
   background-size: cover;
   background-position: center;
 }
-.logo{
+.logo {
   display: flex;
   flex-direction: row;
   padding-left: 5%;
   padding-top: 2%;
   width: 25%;
 }
-.logoTitle{
-  color:white;
-  font-family: 'Impact';
+.logoTitle {
+  color: white;
+  font-family: "Impact";
   font-style: normal;
   font-size: 25px;
   margin-right: 5%;
 }
-.logoIcon{
+.logoIcon {
   width: 25px;
   height: auto;
   padding-bottom: 2%;
 }
-.title{
-height: auto;
-font-family: 'Impact';
-font-style: normal;
-font-weight: 400;
-text-align: center;
-color: #FFD15B;
-width:80%;
-font-size: 44px;
-line-height: 6vw;
-padding-left: 20%;
-padding-top: 15%;
+.title {
+  height: auto;
+  font-family: "Impact";
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  color: #ffd15b;
+  width: 80%;
+  font-size: 44px;
+  line-height: 6vw;
+  padding-left: 20%;
+  padding-top: 15%;
 }
 .searchContainer {
   position: relative;
@@ -53,14 +53,14 @@ padding-top: 15%;
   padding-left: 20%;
 }
 .searchContainer input[type="text"] {
-  width: 800px; 
-  padding-right: 25px; 
+  width: 800px;
+  padding-right: 25px;
   padding-top: 2%;
   padding-bottom: 2%;
   padding-left: 2%;
   border-radius: 11px;
 }
-.searchIcon  {
+.searchIcon {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -72,71 +72,89 @@ padding-top: 15%;
 }
 /* Styles pour les tablettes */
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .logo{
+  .logo {
     width: 50%;
   }
-  .title{
+  .title {
     font-size: 30px;
   }
   .searchContainer {
     padding-left: 10%;
   }
   .searchContainer input[type="text"] {
-    width: 650px; 
+    width: 650px;
   }
 }
 /* Styles pour les portables */
 @media screen and (max-width: 767px) {
-  .logo{
+  .logo {
     width: 80%;
   }
-  .title{
+  .title {
     font-size: 12px;
   }
   .searchContainer {
     padding-left: 12%;
   }
   .searchContainer input[type="text"] {
-    width: 300px; 
+    width: 300px;
   }
 }
 .filter-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 2%;
-    margin-left: 5%;
-    margin-bottom: 5%;
-    flex-direction: row;
-    width: auto;
+  display: flex;
+  gap: 10px;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  flex-direction: row;
+  width: auto;
 }
 .filter-btn {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 1%;
-    cursor: pointer;
-    font-weight: 500;
-    margin-right: 5%;
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 1%;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 5%;
+  height: 50px;
+  overflow: hidden;
+}
+.filter-btn.open {
+  height: auto;
 }
 
 .filter-btn i {
-    margin-left: 50px;
-    transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
-.filter-btn.open .search-container {
+/*.filter-btn.open .search-container {
   display: block;
+}*/
+
+.head {
+  display: flex;
+  padding: 5px 10px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 1%;
+  justify-content: space-between;
+}
+.head h3 {
+  font-size: 16px;
+  font-weight: 500;
 }
 .filter-btn.open i {
-    transform: rotate(180deg);
-    margin-left: 150px;
+  position: relative;
+  transform: rotate(180deg);
+  bottom: 10px;
 }
 .search-container {
-  display: none;
+  /*display: none;*/
   margin-top: 10px;
   padding: 5px;
   border-radius: 4px;
@@ -176,25 +194,28 @@ padding-top: 15%;
   display: block;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  width: 100%; 
+  width: 100%;
   height: 30vh;
   object-fit: cover;
 }
-h4{
+h4 {
   padding-left: 5%;
   padding-top: 5%;
-  font-family: 'Impact';
+  font-family: "Impact";
   font-style: normal;
 }
-.recipe-description{
+.recipe-description {
   padding-left: 5%;
   padding-top: 5%;
-  color: #7A7A7A;
-  font-family: 'Manrope';
+  color: #7a7a7a;
+  font-family: "Manrope";
   font-weight: 700;
 }
-.recipeText{
+.recipeText {
   padding-left: 5%;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  height: 120px;
 }
 .ingredient-columns {
   padding-left: 5%;
@@ -202,21 +223,21 @@ h4{
   flex-wrap: wrap;
 }
 .ingredient-column {
- padding-right: 5%;
+  padding-right: 5%;
 }
 
 .ingredient-column p {
   margin: 0;
 }
-.unite{
+.unite {
   padding-bottom: 20%;
-  color: #7A7A7A;
-  font-family: 'Manrope';
+  color: #7a7a7a;
+  font-family: "Manrope";
   font-size: 400;
 }
-.recipe-time{
+.recipe-time {
   position: absolute;
-  background-color: #FFD15B;
+  background-color: #ffd15b;
   border-radius: 50px;
   padding: 1%;
   padding-top: 0.5%;
