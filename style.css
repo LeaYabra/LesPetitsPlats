@@ -1,50 +1,50 @@
 body {
-    font-family: "Raleway", sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(211, 210, 210);
-    max-width: 1400px;
-    margin: auto;
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(211, 210, 210);
+  max-width: 1400px;
+  margin: auto;
 }
-header{
+header {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('images/logoBg.png');
+  background-image: url("images/logoBg.png");
   background-size: cover;
   background-position: center;
 }
-.logo{
+.logo {
   display: flex;
   flex-direction: row;
   padding-left: 5%;
   padding-top: 2%;
   width: 25%;
 }
-.logoTitle{
-  color:white;
-  font-family: 'Impact';
+.logoTitle {
+  color: white;
+  font-family: "Impact";
   font-style: normal;
   font-size: 25px;
   margin-right: 5%;
 }
-.logoIcon{
+.logoIcon {
   width: 25px;
   height: auto;
   padding-bottom: 2%;
 }
-.title{
-height: auto;
-font-family: 'Impact';
-font-style: normal;
-font-weight: 400;
-text-align: center;
-color: #FFD15B;
-width:80%;
-font-size: 44px;
-line-height: 6vw;
-padding-left: 20%;
-padding-top: 15%;
+.title {
+  height: auto;
+  font-family: "Impact";
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  color: #ffd15b;
+  width: 80%;
+  font-size: 44px;
+  line-height: 6vw;
+  padding-left: 20%;
+  padding-top: 15%;
 }
 .searchContainer {
   position: relative;
@@ -53,14 +53,14 @@ padding-top: 15%;
   padding-left: 20%;
 }
 .searchContainer input[type="text"] {
-  width: 800px; 
-  padding-right: 25px; 
+  width: 800px;
+  padding-right: 25px;
   padding-top: 2%;
   padding-bottom: 2%;
   padding-left: 2%;
   border-radius: 11px;
 }
-.searchIcon  {
+.searchIcon {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -70,156 +70,205 @@ padding-top: 15%;
   width: 4vw;
   padding: 1%;
 }
-/* Styles pour les tablettes */
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .logo{
-    width: 50%;
-  }
-  .title{
-    font-size: 30px;
-  }
-  .searchContainer {
-    padding-left: 10%;
-  }
-  .searchContainer input[type="text"] {
-    width: 650px; 
-  }
-}
-/* Styles pour les portables */
-@media screen and (max-width: 767px) {
-  .logo{
-    width: 80%;
-  }
-  .title{
-    font-size: 12px;
-  }
-  .searchContainer {
-    padding-left: 12%;
-  }
-  .searchContainer input[type="text"] {
-    width: 300px; 
-  }
-}
 .filter-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 2%;
-    margin-left: 5%;
-    margin-bottom: 5%;
-    flex-direction: row;
-    width: auto;
+  display: flex;
+  gap: 10px;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  flex-direction: row;
+  width: auto;
 }
-.filter-btn {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 1%;
-    cursor: pointer;
-    font-weight: 500;
-    margin-right: 5%;
+.filterBtn {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  border-radius:10px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 1%;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 5%;
+  height: 50px;
+  overflow: hidden;
+}
+.filterBtn.open {
+  height: auto;
 }
 
-.filter-btn i {
-    margin-left: 50px;
-    transition: transform 0.3s ease-in-out;
+.filterBtn i {
+  transition: transform 0.3s ease-in-out;
 }
-
-.filter-btn.open .search-container {
-  display: block;
+.head {
+  display: flex;
+  padding: 5px 10px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 1%;
+  justify-content: space-between;
 }
-.filter-btn.open i {
-    transform: rotate(180deg);
-    margin-left: 150px;
+.head h3 {
+  font-size: 16px;
+  font-weight: 500;
 }
-.search-container {
-  display: none;
+.filterBtn.open i {
+  position: relative;
+  transform: rotate(180deg);
+  bottom: 10px;
+}
+.searchFilter {
   margin-top: 10px;
   padding: 5px;
   border-radius: 4px;
   cursor: pointer;
   position: relative;
 }
-.search-container input[type="text"] {
+.searchFilter input[type="text"] {
   width: 100%;
   padding-right: 25px;
 }
 
 .searchIconGrey {
   position: absolute;
-  top: 50%;
+  top: 8%;
   right: 10px;
   transform: translateY(-50%);
   width: 20px;
   height: 20px;
 }
-#recipes-container {
+#recipesContainer {
   display: flex;
   flex-wrap: wrap;
   padding-left: 2%;
   padding-right: 2%;
 }
 
-.recipe-card {
+.recipeCard {
   background-color: white;
   width: 30%;
   height: 30%;
   border-radius: 10px;
   margin-left: 3%;
   margin-bottom: 5%;
+  position: relative;
 }
 
-.recipe-card img {
+.recipeCard img {
   display: block;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  width: 100%; 
+  width: 100%;
   height: 30vh;
   object-fit: cover;
 }
-h4{
-  padding-left: 5%;
+h4 {
+  padding-left: 4%;
   padding-top: 5%;
-  font-family: 'Impact';
+  font-family: "Impact";
   font-style: normal;
+  min-height: 70px;
 }
-.recipe-description{
+.recipeDescription {
   padding-left: 5%;
   padding-top: 5%;
-  color: #7A7A7A;
-  font-family: 'Manrope';
+  color: #7a7a7a;
+  font-family: "Manrope";
   font-weight: 700;
 }
-.recipeText{
-  padding-left: 5%;
+.recipeText {
+  padding-left: 4%;
+  padding-right: 4%;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  height: 120px;
 }
-.ingredient-columns {
-  padding-left: 5%;
+.ingredientColumns {
   display: flex;
   flex-wrap: wrap;
 }
-.ingredient-column {
- padding-right: 5%;
+.ingredientColumn {
+  margin-left: 5%;
+  margin-right: 10%;
 }
 
-.ingredient-column p {
+.ingredientColumn p {
   margin: 0;
 }
-.unite{
+.unite {
   padding-bottom: 20%;
-  color: #7A7A7A;
-  font-family: 'Manrope';
-  font-size: 400;
+  color: #7a7a7a;
+  font-family: "Manrope";
+  font-size: 14px;
 }
-.recipe-time{
+.recipeTime {
   position: absolute;
-  background-color: #FFD15B;
+  background-color: #ffd15b;
   border-radius: 50px;
   padding: 1%;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
-  gap: 10px;
+  right: 10px;
+  top:10px;
+}
+.ingredientNom{
+  font-weight: 600;
+  font-size: 14px;
+  max-width: 130px;
+}
+.filterlist {
+  padding-top: 10%;
+  max-height: 200px;
+  padding-left: 2%;
+}
+li {
+  list-style-type: none;
+  line-height: 1.8;
+}
+
+/* Styles pour les tablettes */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .logo {
+    width: 50%;
+  }
+  header{
+    height: 50vh;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .searchContainer {
+    padding-left: 10%;
+  }
+  .searchContainer input[type="text"] {
+    width: 650px;
+  }
+  .recipeCard{
+    width: 45%;
+  }
+}
+/* Styles pour les portables */
+@media screen and (max-width: 767px) {
+  .logo {
+    width: 80%;
+  }
+  header{
+    height: 40vh;
+  }
+  .title {
+    font-size: 12px;
+  }
+  .searchContainer {
+    padding-left: 12%;
+  }
+  .searchContainer input[type="text"] {
+    width: 300px;
+  }
+  .filter-container {
+    flex-direction: column;
+  }
+  .recipeCard{
+    width: 95%;
+  }
 }
