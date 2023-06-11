@@ -70,7 +70,16 @@ header {
   width: 4vw;
   padding: 1%;
 }
-.filter-container {
+.countRecettes{
+  padding-top: 1%;
+  padding-left: 3%;
+  font-family: "Impact";
+  font-weight: 400 ;
+  font-size: 21px;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+#filterContainer {
   display: flex;
   gap: 10px;
   margin-top: 2%;
@@ -215,7 +224,7 @@ h4 {
 .ingredientNom{
   font-weight: 600;
   font-size: 14px;
-  max-width: 130px;
+  max-width: 100px;
 }
 .filterlist {
   padding-top: 10%;
@@ -265,7 +274,7 @@ li {
   .searchContainer input[type="text"] {
     width: 300px;
   }
-  .filter-container {
+  #filterContainer {
     flex-direction: column;
   }
   .recipeCard{

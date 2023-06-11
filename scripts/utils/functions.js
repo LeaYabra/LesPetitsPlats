@@ -14,8 +14,12 @@ heads.forEach((head) => {
 //recueperer les recettes
 const recipesContainer = document.getElementById("recipesContainer");
 
+// Déclarer une variable pour le nombre total de recettes
+let totalRecipes = 0;
+
 // Parcourir le tableau des recettes et générer du contenu HTML pour chaque recette
 recipes.forEach((recipe) => {
+
   // Créer les éléments HTML pour la recette
   const recipeCard = document.createElement("div");
   recipeCard.classList.add("recipeCard");
@@ -68,7 +72,6 @@ recipes.forEach((recipe) => {
     ingredientContainer.appendChild(quantityElement);
     currentColumn.appendChild(ingredientContainer);
   });
-
   // Ajouter les éléments à la carte de recette
   recipeCard.appendChild(recipeTime);
   recipeCard.appendChild(recipeImage);
@@ -80,4 +83,16 @@ recipes.forEach((recipe) => {
 
   // Ajouter la carte de recette au conteneur des recettes
   recipesContainer.appendChild(recipeCard);
+  totalRecipes++;
 });
+
+// Créer un élément pour afficher le nombre total de recettes affichées
+const totalRecipeCount = document.createElement("div");
+totalRecipeCount.classList.add("countRecettes");
+totalRecipeCount.textContent = `${totalRecipes} recettes`;
+
+// Sélectionner la div "filterContainer"
+const filterContainer = document.getElementById("filterContainer");
+
+// Ajouter l'élément totalRecipeCount à l'intérieur de filterContainer
+filterContainer.appendChild(totalRecipeCount);
