@@ -46,13 +46,13 @@ header {
   padding-left: 20%;
   padding-top: 15%;
 }
-.searchContainer {
+#searchContainer {
   position: relative;
   display: inline-block;
   font-size: 2vw;
   padding-left: 20%;
 }
-.searchContainer input[type="text"] {
+#searchContainer input[type="text"] {
   width: 800px;
   padding-right: 25px;
   padding-top: 2%;
@@ -69,6 +69,15 @@ header {
   border-radius: 5px 5px 5px 5px;
   width: 4vw;
   padding: 1%;
+}
+#messageContainer{
+  color: white;
+  font-family: "Manrope";
+  font-weight: 900;
+  font-size: 20px;
+  padding-left: 20%;
+  padding-top: 2%;
+  
 }
 .countRecettes{
   padding-top: 1%;
@@ -141,7 +150,7 @@ header {
 
 .searchIconGrey {
   position: absolute;
-  top: 8%;
+  top: 20px;
   right: 10px;
   transform: translateY(-50%);
   width: 20px;
@@ -247,10 +256,10 @@ li {
   .title {
     font-size: 30px;
   }
-  .searchContainer {
+  #searchContainer {
     padding-left: 10%;
   }
-  .searchContainer input[type="text"] {
+  #searchContainer input[type="text"] {
     width: 650px;
   }
   .recipeCard{
@@ -268,10 +277,10 @@ li {
   .title {
     font-size: 12px;
   }
-  .searchContainer {
+  #searchContainer {
     padding-left: 12%;
   }
-  .searchContainer input[type="text"] {
+  #searchContainer input[type="text"] {
     width: 300px;
   }
   #filterContainer {

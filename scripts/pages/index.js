@@ -11,19 +11,15 @@ heads.forEach((head) => {
   });
 });
 
-//recueperer les recettes
 const recipesContainer = document.getElementById("recipesContainer");
+let totalRecipes = 0; // Variable pour le nombre total de recettes
 
-// Déclarer une variable pour le nombre total de recettes
-let totalRecipes = 0;
-
-// Parcourir le tableau des recettes et générer du contenu HTML pour chaque recette
-recipes.forEach((recipe) => {
-
-  // Créer les éléments HTML pour la recette
+// Fonction pour créer une carte de recette
+function createRecipeCard(recipe) {
   const recipeCard = document.createElement("div");
   recipeCard.classList.add("recipeCard");
 
+  // Création des éléments HTML pour la recette
   const recipeTime = document.createElement("p");
   recipeTime.classList.add("recipeTime");
   recipeTime.textContent = `${recipe.time} min`;
@@ -38,11 +34,11 @@ recipes.forEach((recipe) => {
   const recipeDescription = document.createElement("p");
   recipeDescription.classList.add("recipeDescription");
   recipeDescription.textContent = `Recette`;
+
   const recipeText = document.createElement("p");
   recipeText.classList.add("recipeText");
   recipeText.textContent = `${recipe.description}`;
 
-  // Ajouter les ingrédients à la recette
   const recipeIngredientTitle = document.createElement("p");
   recipeIngredientTitle.classList.add("recipeDescription");
   recipeIngredientTitle.textContent = `Ingrédients`;
@@ -58,6 +54,7 @@ recipes.forEach((recipe) => {
       currentColumn.classList.add("ingredientColumn");
       recipeIngredients.appendChild(currentColumn);
     }
+
     const ingredientContainer = document.createElement("div");
     const nameElement = document.createElement("p");
     nameElement.classList.add("ingredientNom");
@@ -66,13 +63,13 @@ recipes.forEach((recipe) => {
 
     const quantityElement = document.createElement("p");
     quantityElement.classList.add("unite");
-    quantityElement.textContent = `${ingredient.quantity} ${
-      ingredient.unit || ""
-    }`;
+    quantityElement.textContent = `${ingredient.quantity} ${ingredient.unit || ""}`;
     ingredientContainer.appendChild(quantityElement);
+
     currentColumn.appendChild(ingredientContainer);
   });
-  // Ajouter les éléments à la carte de recette
+
+  // Ajout des éléments à la carte de recette
   recipeCard.appendChild(recipeTime);
   recipeCard.appendChild(recipeImage);
   recipeCard.appendChild(recipeName);
@@ -81,18 +78,29 @@ recipes.forEach((recipe) => {
   recipeCard.appendChild(recipeIngredientTitle);
   recipeCard.appendChild(recipeIngredients);
 
-  // Ajouter la carte de recette au conteneur des recettes
+  // Ajout de la carte de recette au conteneur des recettes
   recipesContainer.appendChild(recipeCard);
-  totalRecipes++;
-});
+  totalRecipes++; // Incrémentation du nombre total de recettes
+}
 
-// Créer un élément pour afficher le nombre total de recettes affichées
+// Fonction pour créer les cartes de recette à partir d'un tableau de recettes
+function createRecipeCards(recipes) {
+  recipes.forEach(recipe => {
+    createRecipeCard(recipe);
+  });
+}
+// Appel initial pour créer les cartes de recette au chargement de la page
+createRecipeCards(recipes);
+
+// Création d'un élément pour afficher le nombre total de recettes affichées
 const totalRecipeCount = document.createElement("div");
 totalRecipeCount.classList.add("countRecettes");
 totalRecipeCount.textContent = `${totalRecipes} recettes`;
 
-// Sélectionner la div "filterContainer"
+// Sélection de la div "filterContainer"
 const filterContainer = document.getElementById("filterContainer");
 
-// Ajouter l'élément totalRecipeCount à l'intérieur de filterContainer
+// Ajout de l'élément totalRecipeCount à l'intérieur de filterContainer
 filterContainer.appendChild(totalRecipeCount);
+
+
