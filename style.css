@@ -250,6 +250,7 @@ li:hover {
 .tag{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   padding-left: 5%;
   padding-bottom: 2%;
   padding-right: 5%;
@@ -260,10 +261,13 @@ li:hover {
   border-radius: 10px;
   padding: 1%;
   margin-right: 2%;
+  margin-bottom: 2%;
 }
 .selectedIngredientTag span {
-  margin-left: 10px;
+  margin-left: 20px;
   white-space: nowrap; 
+  font-weight: 700;
+  font-size: 20px;
 }
 /* Styles pour les tablettes */
 @media screen and (min-width: 768px) and (max-width: 992px) {
@@ -308,5 +312,5 @@ li:hover {
   }
   .recipeCard{
     width: 95%;
-  }
+  } 
 }
