@@ -31,6 +31,7 @@ function searchRecipe() {
    } else {
     updateRecipeDisplay(filteredRecipes);
     updateFilterLists(filteredRecipes);
+    addClickEventListener(ingredientItem,ingredient);
     const messageContainer = document.getElementById('messageContainer');
     messageContainer.textContent = '';
  }
@@ -40,6 +41,10 @@ function resetRecipeDisplay() {
   recipesContainer.innerHTML = '';
   createRecipeCards(recipes); // Utilisation de la fonction createRecipeCards pour générer les cartes de recette
   totalRecipeCount.textContent = `${recipes.length} recettes`;
+}
+function resetRecipeListDisplay() {
+  recipesContainer.innerHTML = '';
+  totalRecipeCount.textContent = '0 recette'; 
 }
 // Fonction pour l'affichage des recettes filtrées
 function updateRecipeDisplay(filteredRecipes) {
@@ -65,6 +70,7 @@ function resetFilterLists() {
     });
  });
 }
+
 //Fonction pour l'affichage des listes de filtres en fonction des recettes filtrées
 function updateFilterLists(filteredRecipes) {
  const filteredIngredients = [];
@@ -78,11 +84,9 @@ function updateFilterLists(filteredRecipes) {
         filteredIngredients.push(ingredient.ingredient);
     }
     });
-
     if (!filteredAppliances.includes(recipe.appliance)) {
     filteredAppliances.push(recipe.appliance);
     }
-
     recipe.ustensils.forEach(ustensil => {
     if (!filteredUstensils.includes(ustensil)) {
         filteredUstensils.push(ustensil);
@@ -96,7 +100,10 @@ function updateFilterLists(filteredRecipes) {
     const ingredientItem = document.createElement('li');
     ingredientItem.textContent = ingredient;
     ingredientsList.appendChild(ingredientItem);
+     // Ajouter un écouteur d'événements click à chaque élément de la liste
+     addClickEventListener(ingredientItem,ingredient);
   });
+   
 
   appliancesList.innerHTML = '';
   filteredAppliances.forEach(appliance => {
@@ -112,7 +119,3 @@ function updateFilterLists(filteredRecipes) {
     ustensilsList.appendChild(ustensilItem);
   });
 }
-
-
-
-
