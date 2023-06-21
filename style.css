@@ -255,7 +255,7 @@ li:hover {
   padding-bottom: 2%;
   padding-right: 5%;
 }
-.selectedIngredientTag{
+.selectedTag{
   position: relative;
   background: #FFD15B;
   border-radius: 10px;
@@ -263,7 +263,7 @@ li:hover {
   margin-right: 2%;
   margin-bottom: 2%;
 }
-.selectedIngredientTag span {
+.selectedTag span {
   margin-left: 20px;
   white-space: nowrap; 
   font-weight: 700;
