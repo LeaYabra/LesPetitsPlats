@@ -52,7 +52,7 @@ function searchRecipe() {
   
   if (filteredRecipes.length === 0) {
     const messageContainer = document.getElementById('messageContainer');
-    messageContainer.textContent = `Aucune recette ne correspond à '${searchTerm}' avec les tags selectionnes. Vous pouvez essayer une autre recherche.`;
+    messageContainer.textContent = `Aucune recette ne contient '${searchTerm}'avec les éléments selctionnés. Vous pouvez chercher "tarte aux pommes", "poisson", etc.`;
     resetRecipeDisplay();
     resetFilterLists();
   } else {
@@ -62,7 +62,6 @@ function searchRecipe() {
     messageContainer.textContent = '';
   }
 }
-
 // Fonction pour réinitialiser l'affichage des recettes
 function resetRecipeDisplay() {
   recipesContainer.innerHTML = "";
@@ -98,13 +97,13 @@ function resetFilterLists() {
     });
   });
 }
-
 //Fonction pour l'affichage des listes de filtres en fonction des recettes filtrées
 function updateFilterLists(filteredRecipes) {
   const filteredIngredients = new Set();
   const filteredAppliances = new Set();
   const filteredUstensils = new Set();
 
+   // Parcours de chaque recette filtrée
   filteredRecipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
       filteredIngredients.add(ingredient.ingredient);
@@ -117,6 +116,7 @@ function updateFilterLists(filteredRecipes) {
 
   // Mettre à jour la liste des ingrédients sélectionnés
   selectedIngredients.forEach((ingredient) => {
+    // Vérification si l'ingrédient sélectionné n'est pas présent
     if (!filteredIngredients.has(ingredient)) {
       selectedIngredients.splice(selectedIngredients.indexOf(ingredient), 1);
     }
@@ -139,7 +139,6 @@ function updateFilterLists(filteredRecipes) {
   });
   generateFilteredUstensilsList([...filteredUstensils]);
 }
-
 //recupere les ingredients des recettes
 function getRecipeIngredients(recipe) {
   return recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());

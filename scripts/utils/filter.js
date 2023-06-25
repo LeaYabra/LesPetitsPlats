@@ -24,12 +24,18 @@ generateFilteredIngredientsList(allIngredients);
 ingredientsFilter.appendChild(ingredientsList);
 
 // Générer les éléments HTML pour la liste des ingrédients filtrés
-function generateFilteredIngredientsList(ingredients) {
+function generateFilteredIngredientsList(ingredientsFilter) {
   ingredientsList.innerHTML = "";
-  ingredients.forEach((ingredient) => {
+  // Générer les nouveaux éléments HTML pour la liste des ingrédients filtrés
+  ingredientsFilter.forEach((ingredient) => {
     const ingredientItem = document.createElement("li");
     ingredientItem.textContent = ingredient;
-    addClickEventListenerIngredients(ingredientItem, ingredient);
+    addClickEventListenerIngredients(ingredientItem, ingredient, "selectedIngredientTag");
+    // Vérifier si l'ingrédient est déjà sélectionné
+    if (selectedIngredients.includes(ingredient)) {
+      ingredientItem.classList.add("selectedIngredientTag");
+    }
+
     ingredientsList.appendChild(ingredientItem);
   });
 }
@@ -89,9 +95,10 @@ function createIngredientTag(ingredient) {
   const tag = document.querySelector('.tag');
   tag.appendChild(ingredientTag);
 }
-// Ajouter un écouteur d'événements click à chaque ingredient de la liste
+// Ajouter un écouteur d'événements click à chaque ingredients de la liste
 function addClickEventListenerIngredients(ingredientItem, ingredient) {
-  ingredientItem.addEventListener('click', () => {
+  ingredientItem.addEventListener('click', (event) => {
+    event.stopPropagation();
     if (!selectedIngredients.includes(ingredient)) {
       createIngredientTag(ingredient);
       selectedIngredients.push(ingredient);
@@ -100,7 +107,6 @@ function addClickEventListenerIngredients(ingredientItem, ingredient) {
     }
   });
 }
-
 // Récupérer la référence de l'élément de filtre des appareils
 const appliancesFilter = document.querySelector(
   ".filterBtn:nth-child(2) .searchFilter"
@@ -191,10 +197,10 @@ function createApplianceTag(appliance) {
   const tag = document.querySelector('.tag');
   tag.appendChild(applianceTag);
 }
-
 // Ajouter un écouteur d'événements click à chaque apareils de la liste
 function addClickEventListenerAppliances(applianceItem, appliance) {
-  applianceItem.addEventListener('click', () => {
+  applianceItem.addEventListener('click', (event) => {
+   event.stopPropagation();
     if (!selectedAppliances.includes(appliance)) {
       createApplianceTag(appliance);
       selectedAppliances.push(appliance);
@@ -203,7 +209,6 @@ function addClickEventListenerAppliances(applianceItem, appliance) {
     }
   });
 }
-
 // Récupérer la référence de l'élément de filtre des ustensils
 const ustensilsFilter = document.querySelector(
   ".filterBtn:nth-child(3) .searchFilter"
@@ -286,7 +291,8 @@ function createUstensilTag(ustensil) {
 }
 // Ajouter un écouteur d'événements click à chaque ustensil de la liste
 function addClickEventListenerUstensils(ustensilItem, ustensil) {
-  ustensilItem.addEventListener('click', () => {
+  ustensilItem.addEventListener('click', (event) => {
+    event.stopPropagation();
     if (!selectedUstensils.includes(ustensil)) {
       createUstensilTag(ustensil);
       selectedUstensils.push(ustensil);
