@@ -4,46 +4,123 @@ searchInput.addEventListener('input', searchRecipe);
 
 // Fonction pour effectuer une recherche de recettes
 function searchRecipe() {
-  // Récupération du terme de recherche et nettoyage
+  const t0 = performance.now();
   const searchTerm = document.querySelector('input[type="text"]').value.trim().replace(/\s+/g, ' ').toLowerCase();
+  const hasSearchTerm = searchTerm !== '' && searchTerm.length >= 3;
 
-  // Vérification si le terme de recherche est vide ou trop court
-  if (searchTerm === '' || searchTerm.length < 3) {
+  if (!hasSearchTerm && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
     resetRecipeDisplay();
     resetFilterLists();
     return;
   }
 
-  // Tableau pour stocker les recettes filtrées
-  const filteredRecipes = [];
-  const recipeCount = recipes.length;
-
-  // Parcours de toutes les recettes
-  for (let i = 0; i < recipeCount; i++) {
+  let filteredRecipes = [];
+  for (let i = 0; i < recipes.length; i++) {
     const recipe = recipes[i];
     const recipeTitle = recipe.name.toLowerCase();
-    const recipeIngredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+    const recipeIngredients = getRecipeIngredients(recipe);
     const recipeDescription = recipe.description.toLowerCase();
 
-    // Vérification si le terme de recherche est présent dans le titre, les ingrédients ou la description
-    if (recipeTitle.includes(searchTerm) || recipeIngredients.includes(searchTerm) || recipeDescription.includes(searchTerm)) {
-      filteredRecipes.push(recipe); // Ajout de la recette filtrée au tableau
+    if (
+      recipeTitle.includes(searchTerm) ||
+      recipeIngredients.includes(searchTerm) ||
+      recipeDescription.includes(searchTerm)
+    ) {
+      filteredRecipes.push(recipe);
     }
   }
 
-  // Vérification si des recettes ont été trouvées
+  // Filtrer par ingrédients
+  const selectedRecipeIngredients = [];
+  for (let i = 0; i < selectedIngredients.length; i++) {
+    selectedRecipeIngredients.push(selectedIngredients[i].toLowerCase());
+  }
+
+  if (selectedRecipeIngredients.length > 0) {
+    const tempFilteredRecipes = [];
+    for (let i = 0; i < filteredRecipes.length; i++) {
+      const recipe = filteredRecipes[i];
+      const recipeIngredients = getRecipeIngredients(recipe);
+      let hasAllIngredients = true;
+      for (let j = 0; j < selectedRecipeIngredients.length; j++) {
+        if (!recipeIngredients.includes(selectedRecipeIngredients[j])) {
+          hasAllIngredients = false;
+          break;
+        }
+      }
+      if (hasAllIngredients) {
+        tempFilteredRecipes.push(recipe);
+      }
+    }
+    filteredRecipes = tempFilteredRecipes;
+  }
+
+  // Filtrer par appareils
+  const selectedRecipeAppliances = [];
+  for (let i = 0; i < selectedAppliances.length; i++) {
+    selectedRecipeAppliances.push(selectedAppliances[i].toLowerCase());
+  }
+
+  if (selectedRecipeAppliances.length > 0) {
+    const tempFilteredRecipes = [];
+    for (let i = 0; i < filteredRecipes.length; i++) {
+      const recipe = filteredRecipes[i];
+      const recipeAppliance = recipe.appliance.toLowerCase();
+      let hasAppliance = false;
+      for (let j = 0; j < selectedRecipeAppliances.length; j++) {
+        if (recipeAppliance === selectedRecipeAppliances[j]) {
+          hasAppliance = true;
+          break;
+        }
+      }
+      if (hasAppliance) {
+        tempFilteredRecipes.push(recipe);
+      }
+    }
+    filteredRecipes = tempFilteredRecipes;
+  }
+
+  // Filtrer par ustensiles
+  const selectedRecipeUstensils = [];
+  for (let i = 0; i < selectedUstensils.length; i++) {
+    selectedRecipeUstensils.push(selectedUstensils[i].toLowerCase());
+  }
+
+  if (selectedRecipeUstensils.length > 0) {
+    const tempFilteredRecipes = [];
+    for (let i = 0; i < filteredRecipes.length; i++) {
+      const recipe = filteredRecipes[i];
+      const recipeUstensils = [];
+      for (let j = 0; j < recipe.ustensils.length; j++) {
+        recipeUstensils.push(recipe.ustensils[j].toLowerCase());
+      }
+      let hasAllUstensils = true;
+      for (let j = 0; j < selectedRecipeUstensils.length; j++) {
+        if (!recipeUstensils.includes(selectedRecipeUstensils[j])) {
+          hasAllUstensils = false;
+          break;
+        }
+      }
+      if (hasAllUstensils) {
+        tempFilteredRecipes.push(recipe);
+      }
+    }
+    filteredRecipes = tempFilteredRecipes;
+  }
+
   if (filteredRecipes.length === 0) {
     const messageContainer = document.getElementById('messageContainer');
-    messageContainer.textContent = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher "tarte aux pommes", "poisson", etc.`;
+    messageContainer.textContent = `Aucune recette ne contient '${searchTerm}' avec les éléments sélectionnés. Vous pouvez chercher "tarte aux pommes", "poisson", etc.`;
     resetRecipeDisplay();
     resetFilterLists();
   } else {
-    // Mise à jour de l'affichage des recettes filtrées
     updateRecipeDisplay(filteredRecipes);
     updateFilterLists(filteredRecipes);
     const messageContainer = document.getElementById('messageContainer');
     messageContainer.textContent = '';
   }
+  var t1 = performance.now();
+  console.log("L'appel a demandé " + (t1-t0)+ " ms.")
 }
 
 // Fonction pour réinitialiser l'affichage des recettes
@@ -64,8 +141,8 @@ function resetFilterLists() {
     // Tableau des listes de filtres à réinitialiser
     const filterLists = [
       { list: ingredientsList, items: allIngredients },   
-      { list: appliancesList, items: appliances },      
-      { list: ustensilsList, items: ustensils }       
+      { list: appliancesList, items: allAppliances },      
+      { list: ustensilsList, items: allUstensils }       
     ];
   
     // Parcours de chaque liste de filtres
@@ -89,70 +166,61 @@ function resetFilterLists() {
   
 // Fonction pour l'affichage des listes de filtres en fonction des recettes filtrées
 function updateFilterLists(filteredRecipes) {
-    const filteredIngredients = [];
-    const filteredAppliances = [];
-    const filteredUstensils = [];
-  
-    // Parcours des recettes filtrées
-    let r = 0;
-    while (r < filteredRecipes.length) {
-      const recipe = filteredRecipes[r];
-  
-      // Parcours des ingrédients de la recette
-      let i = 0;
-      while (i < recipe.ingredients.length) {
-        const ingredient = recipe.ingredients[i].ingredient;
-  
-        // Vérification de l'unicité de l'ingrédient et ajout à la liste filtrée
-        if (!filteredIngredients.includes(ingredient)) {
-          filteredIngredients.push(ingredient);
-        }
-        i++;
-      }
-  
-      // Vérification de l'unicité de l'appareil et ajout à la liste filtrée
-      if (!filteredAppliances.includes(recipe.appliance)) {
-        filteredAppliances.push(recipe.appliance);
-      }
-  
-      // Parcours des ustensiles de la recette
-      let u = 0;
-      while (u < recipe.ustensils.length) {
-        const ustensil = recipe.ustensils[u];
+  const filteredIngredients = new Set();
+  const filteredAppliances = new Set();
+  const filteredUstensils = new Set();
 
-        // Vérification de l'unicité de l'ustensile et ajout à la liste filtrée
-        if (!filteredUstensils.includes(ustensil)) {
-          filteredUstensils.push(ustensil);
-        }
-        u++;
-      }
-      r++;
+  for (let i = 0; i < filteredRecipes.length; i++) {
+    const recipe = filteredRecipes[i];
+
+    for (let j = 0; j < recipe.ingredients.length; j++) {
+      const ingredient = recipe.ingredients[j].ingredient;
+      filteredIngredients.add(ingredient);
     }
-  
-    // Mise à jour des listes de filtres dans le DOM
-    ingredientsList.innerHTML = '';
-    for (let i = 0; i < filteredIngredients.length; i++) {
-      const ingredient = filteredIngredients[i];
-      const ingredientItem = document.createElement('li');
-      ingredientItem.textContent = ingredient;
-      ingredientsList.appendChild(ingredientItem);
+
+    filteredAppliances.add(recipe.appliance);
+
+    for (let k = 0; k < recipe.ustensils.length; k++) {
+      const ustensil = recipe.ustensils[k];
+      filteredUstensils.add(ustensil);
     }
-  
-    appliancesList.innerHTML = '';
-    for (let i = 0; i < filteredAppliances.length; i++) {
-      const appliance = filteredAppliances[i];
-      const applianceItem = document.createElement('li');
-      applianceItem.textContent = appliance;
-      appliancesList.appendChild(applianceItem);
+  }
+
+  // Mettre à jour la liste des ingrédients sélectionnés
+  let i = selectedIngredients.length - 1;
+  while (i >= 0) {
+    const ingredient = selectedIngredients[i];
+    if (!filteredIngredients.has(ingredient)) {
+      selectedIngredients.splice(i, 1);
     }
-  
-    ustensilsList.innerHTML = '';
-    for (let i = 0; i < filteredUstensils.length; i++) {
-      const ustensil = filteredUstensils[i];
-      const ustensilItem = document.createElement('li');
-      ustensilItem.textContent = ustensil;
-      ustensilsList.appendChild(ustensilItem);
+    i--;
+  }
+  generateFilteredIngredientsList([...filteredIngredients]);
+
+  // Mettre à jour la liste des appareils sélectionnés
+  let j = selectedAppliances.length - 1;
+  while (j >= 0) {
+    const appliance = selectedAppliances[j];
+    if (!filteredAppliances.has(appliance)) {
+      selectedAppliances.splice(j, 1);
     }
+    j--;
+  }
+  generateFilteredAppliancesList([...filteredAppliances]);
+
+  // Mettre à jour la liste des ustensiles sélectionnés
+  let k = selectedUstensils.length - 1;
+  while (k >= 0) {
+    const ustensil = selectedUstensils[k];
+    if (!filteredUstensils.has(ustensil)) {
+      selectedUstensils.splice(k, 1);
+    }
+    k--;
+  }
+  generateFilteredUstensilsList([...filteredUstensils]);
 }
-  
-  
+
+//recupere les ingredients des recettes
+function getRecipeIngredients(recipe) {
+  return recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+}
