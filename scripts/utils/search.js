@@ -3,6 +3,7 @@ const searchInput = document.querySelector('input[type="text"]');
 searchInput.addEventListener("input", searchRecipe);
 // Fonction pour effectuer une recherche de recettes
 function searchRecipe() {
+  const t0 = performance.now();
   const searchTerm = document.querySelector('input[type="text"]').value.trim().replace(/\s+/g, ' ').toLowerCase();
   const hasSearchTerm = searchTerm !== '' && searchTerm.length >= 3;
 
@@ -61,6 +62,8 @@ function searchRecipe() {
     const messageContainer = document.getElementById('messageContainer');
     messageContainer.textContent = '';
   }
+  var t1 = performance.now();
+  console.log("L'appel a demandé " + (t1-t0)+ " ms.")
 }
 // Fonction pour réinitialiser l'affichage des recettes
 function resetRecipeDisplay() {
