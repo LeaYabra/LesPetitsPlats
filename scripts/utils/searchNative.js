@@ -7,8 +7,9 @@ function searchRecipe() {
   const t0 = performance.now();
   const searchTerm = document.querySelector('input[type="text"]').value.trim().replace(/\s+/g, ' ').toLowerCase();
   const hasSearchTerm = searchTerm !== '' && searchTerm.length >= 3;
+  const isSearchTermValid = validateEntry(searchTerm);
 
-  if (!hasSearchTerm && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
+  if (!hasSearchTerm && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0 && isSearchTermValid) {
     resetRecipeDisplay();
     resetFilterLists();
     return;
@@ -122,14 +123,12 @@ function searchRecipe() {
   var t1 = performance.now();
   console.log("L'appel a demandé " + (t1-t0)+ " ms.")
 }
-
 // Fonction pour réinitialiser l'affichage des recettes
 function resetRecipeDisplay() {
   recipesContainer.innerHTML = '';
   createRecipeCards(recipes); // Utilisation de la fonction createRecipeCards pour générer les cartes de recette
   totalRecipeCount.textContent = `${recipes.length} recettes`;
 }
-
 // Fonction pour l'affichage des recettes filtrées
 function updateRecipeDisplay(filteredRecipes) {
   recipesContainer.innerHTML = '';
@@ -162,8 +161,7 @@ function resetFilterLists() {
         j++;
       }
     }
-  }
-  
+}
 // Fonction pour l'affichage des listes de filtres en fonction des recettes filtrées
 function updateFilterLists(filteredRecipes) {
   const filteredIngredients = new Set();
@@ -219,8 +217,16 @@ function updateFilterLists(filteredRecipes) {
   }
   generateFilteredUstensilsList([...filteredUstensils]);
 }
-
 //recupere les ingredients des recettes
 function getRecipeIngredients(recipe) {
   return recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+}
+//Fonction pour verifier les caractères non autorisés
+function validateEntry(str) {
+  var letters =
+    /[^a-zA-Z'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]+/;
+  if (str.match(letters)) {
+    return false;
+  }
+  return true;
 }

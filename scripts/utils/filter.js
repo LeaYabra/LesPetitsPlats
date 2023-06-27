@@ -88,7 +88,6 @@ function createIngredientTag(ingredient) {
       selectedIngredients.splice(index, 1);
     }
     searchRecipe();
-
   });
 
   ingredientTag.appendChild(closeIcon);
