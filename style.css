@@ -300,6 +300,10 @@ li:hover {
   .title {
     font-size: 12px;
   }
+  #messageContainer{
+    font-size: 12px;
+    padding-left: 15%;
+  }
   #searchContainer {
     padding-left: 12%;
   }
