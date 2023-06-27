@@ -1,13 +1,15 @@
 // Ajout d'un écouteur d'événement sur le champ de recherche
 const searchInput = document.querySelector('input[type="text"]');
 searchInput.addEventListener("input", searchRecipe);
+
 // Fonction pour effectuer une recherche de recettes
 function searchRecipe() {
   const t0 = performance.now();
   const searchTerm = document.querySelector('input[type="text"]').value.trim().replace(/\s+/g, ' ').toLowerCase();
-  const hasSearchTerm = searchTerm !== '' && searchTerm.length >= 3;
+  const hasSearchTerm = searchTerm !== '' && searchTerm.length >=3;
+  const isSearchTermValid = validateEntry(searchTerm);
 
-  if (!hasSearchTerm && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
+  if (!hasSearchTerm && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0  && isSearchTermValid) {
     resetRecipeDisplay();
     resetFilterLists();
     return;
@@ -16,7 +18,6 @@ function searchRecipe() {
   let filteredRecipes = recipes.filter(recipe => {
     const recipeTitle = recipe.name.toLowerCase();
     const recipeIngredients = getRecipeIngredients(recipe);
-    //const recipeIngredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
     const recipeDescription = recipe.description.toLowerCase();
     return recipeTitle.includes(searchTerm) || recipeIngredients.includes(searchTerm) || recipeDescription.includes(searchTerm);
   });
@@ -142,7 +143,16 @@ function updateFilterLists(filteredRecipes) {
   });
   generateFilteredUstensilsList([...filteredUstensils]);
 }
-//recupere les ingredients des recettes
+//Fonction pour récuperer les ingredients des recettes
 function getRecipeIngredients(recipe) {
   return recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+}
+//Fonction pour verifier les caractères non autorisés
+function validateEntry(str) {
+  var letters =
+    /[^a-zA-Z'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]+/;
+  if (str.match(letters)) {
+    return false;
+  }
+  return true;
 }
