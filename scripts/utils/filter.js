@@ -35,7 +35,6 @@ function generateFilteredIngredientsList(ingredientsFilter) {
     if (selectedIngredients.includes(ingredient)) {
       ingredientItem.classList.add("selectedIngredientTag");
     }
-
     ingredientsList.appendChild(ingredientItem);
   });
 }
@@ -88,7 +87,6 @@ function createIngredientTag(ingredient) {
       selectedIngredients.splice(index, 1);
     }
     searchRecipe();
-
   });
 
   ingredientTag.appendChild(closeIcon);
@@ -301,5 +299,4 @@ function addClickEventListenerUstensils(ustensilItem, ustensil) {
     }
   });
 }
-
 

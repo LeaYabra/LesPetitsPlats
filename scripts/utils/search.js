@@ -72,11 +72,6 @@ function resetRecipeDisplay() {
   createRecipeCards(recipes); // Utilisation de la fonction createRecipeCards pour générer les cartes de recette
   totalRecipeCount.textContent = `${recipes.length} recettes`;
 }
-// Fonction pour réinitialiser l'affichage des listes
-function resetRecipeListDisplay() {
-  recipesContainer.innerHTML = "";
-  totalRecipeCount.textContent = "0 recette";
-}
 // Fonction pour l'affichage des recettes filtrées
 function updateRecipeDisplay(filteredRecipes) {
   recipesContainer.innerHTML = "";
